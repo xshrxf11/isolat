@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{place}}, Malaysia
+      <p class="subtitle">{{api_provider}} <ion-icon name="checkmark-circle" item-start></ion-icon></p>
+            
+                
+              
+    </ion-title>
+    
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-bounce>
+  
+  <ion-card>
+      
+
+    <img src="assets/imgs/card-amsterdam.png"/>
+    <ion-list-header>
+      {{currentDate | date:'EE, d MMMM yyyy'}}
+    </ion-list-header>
+    
+    
+
+    <ion-list >
+
+      <!-- SUBUH -->
+      <div *ngIf="current=='subuh'; else subuhInactive">
+            <ion-list-header class="current">
+                Subuh 
+                <p class="text-current" item-end>{{subuh | date:'hh:mm a'}}</p>
+            </ion-list-header>
+      </div>
+      <ng-template #subuhInactive>
+            <ion-list-header>
+                Subuh 
+                <p item-end>{{subuh | date:'hh:mm a'}}</p>
+            </ion-list-header>
+      </ng-template>
+
+      <!-- ZOHOR -->
+      <div *ngIf="current=='zohor'; else zohorInactive">
+            <ion-list-header class="current">
+                Zohor 
+                <p class="text-current" item-end>{{zohor | date:'hh:mm a'}}</p>
+            </ion-list-header>
+      </div>
+      <ng-template #zohorInactive>
+            <ion-list-header>
+                Zohor 
+                <p item-end>{{zohor | date:'hh:mm a'}}</p>
+            </ion-list-header>
+      </ng-template>
+
+      <!-- ASAR -->
+      <div *ngIf="current=='asar'; else asarInactive">
+            <ion-list-header class="current">
+                Asar 
+                <p class="text-current" item-end>{{asar | date:'hh:mm a'}}</p>
+            </ion-list-header>
+      </div>
+      <ng-template #asarInactive>
+            <ion-list-header>
+                Asar 
+                <p item-end>{{asar | date:'hh:mm a'}}</p>
+            </ion-list-header>
+      </ng-template>
+
+      <!-- MAGHRIB -->
+      <div *ngIf="current=='maghrib'; else maghribInactive">
+            <ion-list-header class="current">
+                Maghrib 
+                <p class="text-current" item-end>{{maghrib | date:'hh:mm a'}}</p>
+            </ion-list-header>
+      </div>
+      <ng-template #maghribInactive>
+            <ion-list-header>
+                Maghrib 
+                <p item-end>{{maghrib | date:'hh:mm a'}}</p>
+            </ion-list-header>
+      </ng-template>
+      
+      <!-- ISYAK -->
+      <div *ngIf="current=='isyak'; else isyakInactive ">
+        <ion-list-header  class="current">
+            Isyak 
+            <p class="text-current" item-end>{{isyak | date:'hh:mm a'}}</p>
+        </ion-list-header>
+      </div>
+      <ng-template #isyakInactive>
+            <ion-list-header>
+                Isyak 
+                <p item-end>{{isyak | date:'hh:mm a'}}</p>
+            </ion-list-header>
+      </ng-template>
+      
+      
+      
+      
+    
+    
+    </ion-list>
+    
+  </ion-card>
+
+  
+
+</ion-content>

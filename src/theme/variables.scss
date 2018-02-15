@@ -35,16 +35,23 @@ $app-direction: ltr;
 
 $colors: (
   primary:    #488aff,
-  secondary:  #32db64,
+  secondary:  #f5f5f5,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222
 );
 
 
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
+$background-ios-color: color($colors, secondary);
+$card-ios-margin-left: 0;
+$card-ios-margin-right: 0;
+$card-ios-margin-top: 0;
+$range-ios-hit-height: none;
+
 
 
 
@@ -52,13 +59,18 @@ $colors: (
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
+$background-md-color: color($colors, secondary);
+$card-md-margin-left: 0;
+$card-md-margin-right: 0;
 
 
 
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
+$background-wp-color: color($colors, secondary);
+$card-wp-margin-left: 0;
+$card-wp-margin-right: 0;
 
 
 

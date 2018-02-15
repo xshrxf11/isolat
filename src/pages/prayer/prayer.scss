@@ -1,0 +1,17 @@
+.toolbar-title {
+    overflow: visible;
+    position: relative;
+    .subtitle {
+        font-size: 80%;
+        margin: 0;
+        text-transform: capitalize;
+    }
+  }
+
+  .current{
+    background : #678aff;
+    color:white !important;
+    .text-current{
+        color:white !important;
+    }
+  }

@@ -1,15 +1,23 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest';
 
+
+/**
+ * Generated class for the PrayerPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-prayer',
+  templateUrl: 'prayer.html',
 })
-export class HomePage {
+export class PrayerPage {
 
   time_prayer: any;
-  tomorrow:any;
   currentDate:any;
   currentTime:any;
   formattedDate:any;
@@ -23,43 +31,28 @@ export class HomePage {
   maghrib:any;
   isyak:any;  
   place:any;
-  
-  
+  api_provider:any;
+  current:any;
 
-  constructor(public navCtrl: NavController, public restProvider: RestProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public restProvider: RestProvider) 
+  {
     this.currentDate =  new Date();
-    
-    
-    this.getFormattedDate();
+    this.getTimePrayer();
     
     this.currentTime = this.currentDate.getTime();
-    this.next_solat = this.next_solat;
-    this.next_time = this.next_time;
+    
     
   }
 
-  getFormattedDate(){
+  getTimePrayer(){
     var dateObj = new Date();
-
-    var year = dateObj.getFullYear().toString();
-    var month = dateObj.getMonth().toString();
     var date = dateObj.getDate();
-
-       
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    var next_day = tomorrow.getDate();
-    
-    
-
-    var monthArray = ['Jan', 'Feb'];
-
-    this.formattedDate = year + '-' + monthArray[month] + '-'+ date.toString();
     this.restProvider.getTimePrayer()
     .then(data => {
       this.time_prayer = data;
       let prayer ={
         place: this.time_prayer.data.place,
+        provider: this.time_prayer.data.provider,
         subuh: this.time_prayer.data.times[date-1][0] * 1000,
         zohor: this.time_prayer.data.times[date-1][2]  * 1000,
         asar: this.time_prayer.data.times[date-1][3]  * 1000,
@@ -67,44 +60,43 @@ export class HomePage {
         isyak: this.time_prayer.data.times[date-1][5]  * 1000,
       };
       this.place = prayer.place;
+      this.api_provider = prayer.provider;
       this.subuh = prayer.subuh;
       this.zohor = prayer.zohor;
       this.asar = prayer.asar;
       this.maghrib = prayer.maghrib;
       this.isyak = prayer.isyak;
+
       if(this.currentTime >= prayer.isyak){
+        this.current = 'isyak';
         this.time = this.isyak;
         this.solat = 'Isyak';
-        this.next_time = this.time_prayer.data.times[next_day-1][0] * 1000;
-        this.next_solat = 'Subuh';
-      }
-      else if(this.currentTime >= prayer.maghrib){
-        this.time = this.maghrib;
-        this.solat = 'Maghrib';
         this.next_time = this.isyak;
         this.next_solat = 'Isyak';
       }
+      else if(this.currentTime >= prayer.maghrib){
+        this.current = 'maghrib';
+        this.time = this.maghrib;
+        this.solat = 'Maghrib';
+      }
       else if(this.currentTime >= prayer.asar){
+        this.current = 'asar';
         this.time = this.asar;
         this.solat = 'Asar';
-        this.next_time = this.maghrib;
-        this.next_solat = 'Maghrib';
       }
       else if(this.currentTime >= prayer.zohor){
+        this.current = 'zohor';
         this.time = this.zohor;
         this.solat = 'Zohor';
         this.next_time = this.asar;
         this.next_solat = 'Asar';
       }
       else if(this.currentTime >= prayer.subuh){
+        this.current = 'subuh';
         this.time = this.subuh;
         this.solat = 'Subuh';
-        this.next_time = this.zohor;
-        this.next_solat = 'Zohor';
       }
-      
-      
-      console.log(this.time_prayer);
+
       
     });
 
